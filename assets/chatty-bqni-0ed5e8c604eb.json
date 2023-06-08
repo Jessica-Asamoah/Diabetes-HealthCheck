@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "chatty-bqni",
+  "private_key_id": "0ed5e8c604ebfbb71b4ba6dce704524bf0953e9b",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDq4T2MupOS6Yvz\nbgzPiOKbOL2UhQaDaFpcU6eK+q0qpyX6RZYoekv0NMgbe1F5h/y5SvyvenmOWdmz\nZiV0hyLd32wxPHkBQDbhM0Rgd2yOBOp3T63M5TFBrf1IST0XDqT32Uye4DXAwxA3\n7ZSKWYxycMM0XworiQ6IE16fkCjLMurrlqNT5nO77zAl76571iPQqcxu42dtG9Kg\n3PEvlwLOngLRz8vwZYGwJ01GSPD0FC9tHDgSVG3652L8cB930J+Bo7q0CFVGm7cU\nRCeP6llsZfUkTYNc4hRyHGLpOTbSUrSaT7FJwXxVl6XqSP7lpDFfiUFD5BbLuj1U\nBjxEv0u5AgMBAAECggEAVHr3PGrPMYQ3BjOLAApoFxRte8Hs+c7K0XJ1TJOlPTYp\nfr8QpzZ1ozxozRmp0GCNEcha4nLWzdCbcN9IkYUZkVwO+haaH00NcCqUaW4K6Xnz\nKz7JcGzvLoR6GUneYzCtPUg3Ot3B97cxWixlxO04iuDsFSYp7ka5p0/wNMwRICRb\nvy1hmjvbgh8TMRiZWOa2BuD05XJ0lRpcFfzso4nBjdE2acFH0+PT152RR/gGHemo\nVQ5f/t/eQtXDm5KltmC1bpbxJD1aqRuItQE/aRpXqD5cigBfqLqiB+RjIdwsi43b\nPriGLOxy9hjg2CxIGGdt6cy7uMyMQf1fSBAz7s0bEQKBgQD+UlmI6z+9MsMVQ2I5\nb8rPtUPyS3Hbq4f4ki6tUkdvV6K+5cHjFQ28nwi0MP9V0aWK0L9V6I/yKq2l/stp\ntp04PWCstXO4PbWcNFOS9DwVN0kMHq1GEa5ZCHQ29zmWSeJjK/JxfCQsskXr//k1\nCYG7+Aown+Do1g9yGYvO1mlzFwKBgQDsbguzrJPiTaEqTgde4Cr3Ky2ZFKMXKhDG\nuN9/w98jTcTfzQpfp/+3kAo22HSXHeqv62WPb+1DREz0zGZbjyxpUOY5Lx7xU+X0\nd3xIj2lF9eJBghNXTZwimhx5jPYheEvA5TjsKa6D3srPD0+9/jKjF1yZdt+4Svfj\ndAANnDK5rwKBgF8U/rB3826S6eirNq/uoc6iIHMXzcupB77hOF5IYri39PqV/7Uc\ni/Q3KRPlNbEqHlAV11MRDbAmUKG87uPpCEKcf+ZSOJ9rQtjRn2VTtprf/olvdqy5\ns4tJ49kg+QC9Qsx9A7l2BjhHtmiTXOJ9WWmjRHwFahri3Qd1kZWVB/ulAoGAGcee\nCwdkUKa6TgyYDSZQSQcyP6Dab6osjh6WcC4BZK4UK3sGCIwe+/r+wiA0Bk5Cys/W\nER/ZNR57ba3j81PXOdySXeXfb90AE/n7WUYZ6oD3HMF8LmbOAY/gTvip1dhyGiRk\nYovg9YwTfSRkQ4k2KEZh2HH3zvaNtQVvBAzmEw0CgYEA1sxq2/d7NYD1QBKShkJX\nsLKTfbx7pSolLZeSD3ryJmNLOksfcV9YMkzL9Pt8+LEohW8WGCA6UgKyV+bd+EvH\nlpHn4sGHcGxJu2qv6a7eYb2lGJnmEEjvVInlTH+mnxi6uELzN19oLd2xPmBscYId\n4Ty/CPmW4YMQfWGEzeNFAO4=\n-----END PRIVATE KEY-----\n",
+  "client_email": "diabeteschatbot@chatty-bqni.iam.gserviceaccount.com",
+  "client_id": "116724155270931741571",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/diabeteschatbot%40chatty-bqni.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
