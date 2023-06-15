@@ -1,137 +1,229 @@
+import 'package:chatbot/views/chatbot.dart';
 import 'package:flutter/material.dart';
-import 'package:dialogflow_flutter/dialogflowFlutter.dart';
-import 'package:dialogflow_flutter/googleAuth.dart';
-import 'package:dialogflow_flutter/language.dart';
-import 'package:dialogflow_flutter/message.dart';
-import 'package:bubble/bubble.dart';
 
 void main() {
   runApp(
-    const MaterialApp(
-      home: MyApp(),
+    MaterialApp(
+      home: const Dashboard(),
+      routes: {'/chatbot/': (context) => const ChatBot()},
     ),
   );
 }
 
-class MyApp extends StatefulWidget {
-  const MyApp({super.key});
-
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  void response(query) async {
-    AuthGoogle authGoogle =
-        await AuthGoogle(fileJson: "assets/chatty-bqni-0ed5e8c604eb.json")
-            .build();
-    DialogFlow dialogflow = DialogFlow(authGoogle: authGoogle, language: "en");
-    AIResponse aiResponse = await dialogflow.detectIntent(query);
-    setState(() {
-      messages.insert(0, {
-        "data": 0,
-        "message": aiResponse.getListMessage()![0]["text"]["text"][0].toString()
-      });
-    });
-  }
-
-  final messageInsert = TextEditingController();
-  List<Map> messages = [];
+class Dashboard extends StatelessWidget {
+  const Dashboard({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        title: const Text(
-          "Ask Me Anything",
-          style: TextStyle(color: Colors.black),
+
+        // extendBodyBehindAppBar: true,
+        // appBar: AppBar(
+        //   centerTitle: true,
+        //   automaticallyImplyLeading: false,
+        //   leading: const Padding(
+        //     padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+        //     child: CircleAvatar(
+        //       backgroundImage:
+        //           AssetImage('assets/images/photo_2023-03-30_12-47-30.jpg'),
+        //     ),
+        //   ),
+        //   title: const Padding(
+        //     padding: EdgeInsets.fromLTRB(0, 0, 220, 0),
+        //     child: Text(
+        //       'Hi,\nAwura',
+        //     ),
+        //   ),
+        //   actions: <Widget>[
+        //     Container(
+        //       margin: const EdgeInsets.fromLTRB(0, 8, 15, 8),
+        //       child: const Icon(Icons.menu),
+        //     )
+        //   ],
+        //   backgroundColor: Colors.transparent,
+        //   elevation: 0,
+        // ),
+        body: Container(
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage("assets/images/image_2023-06-09_13-38-14.png"),
+          fit: BoxFit.cover,
         ),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
       ),
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-              image: NetworkImage(
-                  "https://images.pexels.com/photos/7130498/pexels-photo-7130498.jpeg?cs=srgb&dl=pexels-codioful-%28formerly-gradienta%29-7130498.jpg&fm=jpg"),
-              fit: BoxFit.cover),
-        ),
-        child: Column(
-          children: <Widget>[
-            Flexible(
-                child: ListView.builder(
-                    reverse: true,
-                    padding: const EdgeInsets.all(10.0),
-                    itemCount: messages.length,
-                    itemBuilder: (context, index) => chat(
-                        messages[index]["message"].toString(),
-                        messages[index]["data"]))),
-            const Divider(
-              height: 3.0,
+      child: SafeArea(
+          child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: const [
+                CircleAvatar(
+                  backgroundImage:
+                      AssetImage("assets/images/photo_2023-03-30_12-47-30.jpg"),
+                ),
+                Icon(
+                  Icons.menu,
+                  color: Colors.white,
+                  size: 50.0,
+                ),
+              ],
             ),
-            Container(
-              padding: const EdgeInsets.only(bottom: 10.0),
-              margin: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: Row(
-                children: <Widget>[
-                  Flexible(
-                      child: TextField(
-                    controller: messageInsert,
-                    decoration: const InputDecoration.collapsed(
-                        hintText: "Send your message"),
-                  )),
-                  Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 4.0),
-                      child: IconButton(
-                          onPressed: () {
-                            if (messageInsert.text.isEmpty) {
-                              print("Empty message");
-                            } else {
-                              setState(() {
-                                messages.insert(0,
-                                    {"data": 1, "message": messageInsert.text});
-                              });
-                              response(messageInsert.text);
-                              messageInsert.clear();
-                            }
-                          },
-                          icon: const Icon(Icons.send)))
+          ),
+          const Padding(
+            padding: EdgeInsets.all(18.0),
+            child: Text(
+              "Welcome, Awuradjoa",
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 28.0,
+                  fontWeight: FontWeight.bold),
+              textAlign: TextAlign.start,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Center(
+              child: Wrap(
+                spacing: 20.0,
+                runSpacing: 20.0,
+                children: [
+                  SizedBox(
+                    width: 160.0,
+                    height: 160.0,
+                    child: Card(
+                      color: const Color(0xFFF4F4F4),
+                      elevation: 2.0,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0)),
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(children: [
+                            Image.asset(
+                              "assets/images/camera.png",
+                              width: 64.0,
+                            ),
+                            const SizedBox(
+                              height: 10.0,
+                            ),
+                            const Text(
+                              "Camera",
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20.0,
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 5.0,
+                            ),
+                            const Text("Check for Calories",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w100))
+                          ]),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 160.0,
+                    height: 160.0,
+                    child: Card(
+                      color: const Color(0xFFF4F4F4),
+                      elevation: 2.0,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0)),
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Column(children: [
+                            Image.asset(
+                              "assets/images/chatbot.png",
+                              width: 50.0,
+                            ),
+                            const SizedBox(
+                              height: 5.0,
+                            ),
+                            TextButton(
+                              style: TextButton.styleFrom(
+                                minimumSize: Size.zero,
+                                padding: EdgeInsets.zero,
+                              ),
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => const ChatBot()));
+                              },
+                              child: const Text(
+                                "ChatDBT",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20.0,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 1.0,
+                            ),
+                            const Text("Ask me Anything",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w100))
+                          ]),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 329.0,
+                    height: 203.0,
+                    child: Card(
+                      color: const Color(0xFFF4F4F4),
+                      elevation: 2.0,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(44.0)),
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(35.0),
+                          child: Column(children: [
+                            Image.asset(
+                              "assets/images/idea.png",
+                              width: 64.0,
+                            ),
+                            const SizedBox(
+                              height: 10.0,
+                            ),
+                            const Text(
+                              "Tips",
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20.0,
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 5.0,
+                            ),
+                            const Text("Get some health tips",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w100))
+                          ]),
+                        ),
+                      ),
+                    ),
+                  )
                 ],
               ),
-            )
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-Widget chat(String message, int data) {
-  return Padding(
-    padding: const EdgeInsets.all(10.0),
-    child: Bubble(
-        radius: const Radius.circular(15.0),
-        color: data == 0 ? Colors.lightBlue : Colors.white,
-        elevation: 0.0,
-        alignment: data == 0 ? Alignment.topLeft : Alignment.topRight,
-        nip: data == 0 ? BubbleNip.leftBottom : BubbleNip.rightTop,
-        child: Padding(
-          padding: const EdgeInsets.all(2.0),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              const SizedBox(
-                width: 10.0,
-              ),
-              Flexible(
-                  child: Text(
-                message,
-                style: const TextStyle(
-                    color: Colors.black, fontWeight: FontWeight.bold),
-              ))
-            ],
+            ),
           ),
-        )),
-  );
+        ],
+      )),
+    ));
+  }
 }
