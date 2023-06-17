@@ -90,16 +90,16 @@ class Dashboard extends StatelessWidget {
                 runSpacing: 20.0,
                 children: [
                   SizedBox(
-                    width: 160.0,
-                    height: 160.0,
+                    width: 329.0,
+                    height: 203.0,
                     child: Card(
                       color: const Color(0xFFF4F4F4),
                       elevation: 2.0,
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.0)),
+                          borderRadius: BorderRadius.circular(44.0)),
                       child: Center(
                         child: Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(35.0),
                           child: Column(children: [
                             Image.asset(
                               "assets/images/camera.png",
@@ -129,16 +129,16 @@ class Dashboard extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    width: 160.0,
-                    height: 160.0,
+                    width: 329.0,
+                    height: 203.0,
                     child: Card(
                       color: const Color(0xFFF4F4F4),
                       elevation: 2.0,
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.0)),
+                          borderRadius: BorderRadius.circular(44.0)),
                       child: Center(
                         child: Padding(
-                          padding: const EdgeInsets.all(10.0),
+                          padding: const EdgeInsets.all(35.0),
                           child: Column(children: [
                             Image.asset(
                               "assets/images/chatbot.png",
