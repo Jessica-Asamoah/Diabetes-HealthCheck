@@ -1,3 +1,5 @@
+import 'package:camera/camera.dart';
+import 'package:chatbot/views/camera.dart';
 import 'package:chatbot/views/chatbot.dart';
 import 'package:flutter/material.dart';
 
@@ -103,21 +105,31 @@ class Dashboard extends StatelessWidget {
                           child: Column(children: [
                             Image.asset(
                               "assets/images/camera.png",
-                              width: 64.0,
-                            ),
-                            const SizedBox(
-                              height: 10.0,
-                            ),
-                            const Text(
-                              "Camera",
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20.0,
-                              ),
+                              width: 50.0,
                             ),
                             const SizedBox(
                               height: 5.0,
+                            ),
+                            TextButton(
+                              style: TextButton.styleFrom(
+                                minimumSize: Size.zero,
+                                padding: EdgeInsets.zero,
+                              ),
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const RecScreen()));
+                              },
+                              child: const Text(
+                                "Camera",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20.0,
+                                ),
+                              ),
                             ),
                             const Text("Check for Calories",
                                 style: TextStyle(
