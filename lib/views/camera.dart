@@ -13,6 +13,7 @@ class RecScreen extends StatefulWidget {
 class _RecScreenState extends State<RecScreen> {
   late List<CameraDescription> cameras;
   late CameraController cameraController;
+  bool isReady = false;
 
   int direction = 0;
 
@@ -30,6 +31,7 @@ class _RecScreenState extends State<RecScreen> {
         enableAudio: false);
 
     await cameraController.initialize().then((value) {
+      isReady = true;
       if (!mounted) {
         return;
       }
@@ -49,8 +51,13 @@ class _RecScreenState extends State<RecScreen> {
 
   @override
   Widget build(BuildContext context) {
-    if (cameraController.value.isInitialized) {
+    if (isReady) {
       return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: const Text("Capture Food"),
+          backgroundColor: const Color(0XFFff5a5f),
+        ),
         body: Stack(
           children: [
             SizedBox(
@@ -148,7 +155,10 @@ class DisplayPictureScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Display the Picture')),
+      appBar: AppBar(
+        title: const Text('Calories Checker'),
+        backgroundColor: Color(0xFF5390d9),
+      ),
       // The image is stored as a file on the device. Use the `Image.file`
       // constructor with the given path to display the image.
       body: Image.file(File(imagePath)),
