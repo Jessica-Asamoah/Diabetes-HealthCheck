@@ -1,4 +1,4 @@
-import 'package:camera/camera.dart';
+import 'package:chatbot/views/api.dart';
 import 'package:chatbot/views/camera.dart';
 import 'package:chatbot/views/chatbot.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 void main() {
   runApp(
     MaterialApp(
-      home: const Dashboard(),
+      home: TestApi(),
       routes: {'/chatbot/': (context) => const ChatBot()},
     ),
   );
@@ -191,45 +191,45 @@ class Dashboard extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(
-                    width: 329.0,
-                    height: 203.0,
-                    child: Card(
-                      color: const Color(0xFFF4F4F4),
-                      elevation: 2.0,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(44.0)),
-                      child: Center(
-                        child: Padding(
-                          padding: const EdgeInsets.all(35.0),
-                          child: Column(children: [
-                            Image.asset(
-                              "assets/images/idea.png",
-                              width: 64.0,
-                            ),
-                            const SizedBox(
-                              height: 10.0,
-                            ),
-                            const Text(
-                              "Tips",
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20.0,
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 5.0,
-                            ),
-                            const Text("Get some health tips",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w100))
-                          ]),
-                        ),
-                      ),
-                    ),
-                  )
+                  // SizedBox(
+                  //   width: 329.0,
+                  //   height: 203.0,
+                  //   child: Card(
+                  //     color: const Color(0xFFF4F4F4),
+                  //     elevation: 2.0,
+                  //     shape: RoundedRectangleBorder(
+                  //         borderRadius: BorderRadius.circular(44.0)),
+                  //     child: Center(
+                  //       child: Padding(
+                  //         padding: const EdgeInsets.all(35.0),
+                  //         child: Column(children: [
+                  //           Image.asset(
+                  //             "assets/images/idea.png",
+                  //             width: 64.0,
+                  //           ),
+                  //           const SizedBox(
+                  //             height: 10.0,
+                  //           ),
+                  //           const Text(
+                  //             "Tips",
+                  //             style: TextStyle(
+                  //               color: Colors.black,
+                  //               fontWeight: FontWeight.bold,
+                  //               fontSize: 20.0,
+                  //             ),
+                  //           ),
+                  //           const SizedBox(
+                  //             height: 5.0,
+                  //           ),
+                  //           const Text("Get some health tips",
+                  //               style: TextStyle(
+                  //                   color: Colors.black,
+                  //                   fontWeight: FontWeight.w100))
+                  //         ]),
+                  //       ),
+                  //     ),
+                  //   ),
+                  // )
                 ],
               ),
             ),
