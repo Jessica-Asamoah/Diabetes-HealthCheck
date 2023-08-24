@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class TestApi extends StatefulWidget {
+  final String query;
+
+  TestApi({required this.query});
+
   @override
   _TestApiState createState() => _TestApiState();
 }
@@ -10,7 +14,8 @@ class TestApi extends StatefulWidget {
 class _TestApiState extends State<TestApi> {
   Future<List<dynamic>> fetchData() async {
     final response = await http.get(
-      Uri.parse('https://api.api-ninjas.com/v1/nutrition?query=1lb apple'),
+      Uri.parse(
+          'https://api.api-ninjas.com/v1/nutrition?query=${widget.query}'),
       headers: {"X-Api-Key": "5liSD9xaa1ETenbFFKwtkQ==OOg5VF1QvTXoXcQw"},
     ); // Replace with your API URL
 
@@ -33,28 +38,73 @@ class _TestApiState extends State<TestApi> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        title: Text('API Data Display'),
-      ),
-      body: Center(
-        child: FutureBuilder<List<dynamic>>(
-          future: fetchData(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return CircularProgressIndicator();
-            } else if (snapshot.hasError) {
-              return Text('Error occurred: ${snapshot.error}');
-            } else {
-              final data = snapshot.data;
-              return Container(
-                padding: EdgeInsets.all(16.0),
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black),
-                ),
-                child: Text('Data fetched successfully:\n${json.encode(data)}'),
-              );
-            }
+        leading: BackButton(
+          onPressed: () {
+            Navigator.pop(context);
           },
+          color: Colors.black,
+        ),
+        centerTitle: true,
+        title: const Text(
+          "Do you really want to eat that?",
+          style: TextStyle(color: Colors.black),
+        ),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage("assets/images/image_2023-06-09_13-38-14.png"),
+              fit: BoxFit.cover),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Center(
+            child: Wrap(
+              spacing: 20.0,
+              runSpacing: 20.0,
+              children: [
+                SizedBox(
+                  width: 329.0,
+                  height: 203.0,
+                  child: Card(
+                    color: const Color(0xFFF4F4F4),
+                    elevation: 2.0,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(44.0)),
+                    child: Center(
+                      child: FutureBuilder<List<dynamic>>(
+                        future: fetchData(),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return const CircularProgressIndicator();
+                          } else if (snapshot.hasError) {
+                            return Text('Error occurred: ${snapshot.error}');
+                          } else {
+                            final data = snapshot.data;
+                            final calories =
+                                data![0]["calories"]; // Extract the "age" value
+                            return Container(
+                              padding: EdgeInsets.all(16.0),
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.black),
+                              ),
+                              child: Text(
+                                  'The Estimated Calories are:\n$calories'),
+                            );
+                          }
+                        },
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );

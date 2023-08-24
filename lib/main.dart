@@ -1,12 +1,13 @@
 import 'package:chatbot/views/api.dart';
 import 'package:chatbot/views/camera.dart';
 import 'package:chatbot/views/chatbot.dart';
+import 'package:chatbot/views/tfl.dart';
 import 'package:flutter/material.dart';
 
 void main() {
   runApp(
     MaterialApp(
-      home: TestApi(),
+      home: Dashboard(),
       routes: {'/chatbot/': (context) => const ChatBot()},
     ),
   );

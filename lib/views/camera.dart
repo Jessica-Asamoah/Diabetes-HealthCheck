@@ -1,7 +1,9 @@
 import 'dart:io';
-
 import 'package:camera/camera.dart';
+import 'package:chatbot/views/api.dart';
 import 'package:flutter/material.dart';
+import 'package:tflite/tflite.dart';
+import 'package:image_picker/image_picker.dart';
 
 class RecScreen extends StatefulWidget {
   const RecScreen({Key? key}) : super(key: key);
@@ -14,13 +16,35 @@ class _RecScreenState extends State<RecScreen> {
   late List<CameraDescription> cameras;
   late CameraController cameraController;
   bool isReady = false;
+  List<dynamic>? recognitions;
+  String? detectedLabel; // Add this variable
 
   int direction = 0;
 
+  // Add TFLite model variables
+  late String modelPath;
+  late String labelsPath;
+  bool isModelLoaded = false;
+
   @override
   void initState() {
+    modelPath = 'assets/FruitsINC1.tflite';
+    labelsPath = 'assets/fruit_labels.txt';
+    loadModel();
     startCamera(0);
     super.initState();
+  }
+
+  Future<void> loadModel() async {
+    try {
+      await Tflite.loadModel(
+        model: modelPath,
+        labels: labelsPath,
+      );
+      isModelLoaded = true;
+    } catch (e) {
+      print('Error loading model: $e');
+    }
   }
 
   void startCamera(int direction) async {
@@ -46,7 +70,27 @@ class _RecScreenState extends State<RecScreen> {
   @override
   void dispose() {
     cameraController.dispose();
+    Tflite.close();
     super.dispose();
+  }
+
+  Future<void> runModel(File imageFile) async {
+    if (!isModelLoaded) return;
+
+    recognitions = await Tflite.runModelOnImage(
+      path: imageFile.path,
+      numResults: 1, // Maximum number of results to display
+    );
+
+    // Assign the label to the detectedLabel variable
+    detectedLabel = recognitions![0]['label'];
+
+    // Handle the list of recognition results here
+    for (var recognition in recognitions!) {
+      print('Label: ${recognition['label']}');
+      print('Confidence: ${recognition['confidence']}');
+      // You can also access other properties like 'rect' for bounding box coordinates
+    }
   }
 
   @override
@@ -77,11 +121,10 @@ class _RecScreenState extends State<RecScreen> {
             ),
             GestureDetector(
               onTap: () {
-                cameraController.takePicture().then((XFile? file) {
-                  if (mounted) {
-                    if (file != null) {
-                      print("Picture saved to ${file.path}");
-                    }
+                cameraController.takePicture().then((XFile? file) async {
+                  if (mounted && file != null) {
+                    print("Picture saved to ${file.path}");
+                    await runModel(File(file.path));
                   }
                   Navigator.of(context).push(
                     MaterialPageRoute(
@@ -89,6 +132,8 @@ class _RecScreenState extends State<RecScreen> {
                         // Pass the automatically generated path to
                         // the DisplayPictureScreen widget.
                         imagePath: file!.path,
+                        recognitions: recognitions!,
+                        detectedLabel: detectedLabel, // Pass the detected label
                       ),
                     ),
                   );
@@ -97,7 +142,24 @@ class _RecScreenState extends State<RecScreen> {
               child: button(Icons.camera_alt_outlined, Alignment.bottomCenter),
             ),
             GestureDetector(
-              onTap: () {},
+              onTap: () async {
+                final pickedImage =
+                    await ImagePicker().pickImage(source: ImageSource.gallery);
+                if (pickedImage != null) {
+                  File imageFile = File(pickedImage.path);
+                  await runModel(imageFile);
+
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => DisplayPictureScreen(
+                        imagePath: imageFile.path,
+                        recognitions: recognitions!,
+                        detectedLabel: detectedLabel, // Pass the detected label
+                      ),
+                    ),
+                  );
+                }
+              },
               child:
                   button(Icons.photo_library_outlined, Alignment.bottomRight),
             ),
@@ -149,19 +211,62 @@ class _RecScreenState extends State<RecScreen> {
 
 class DisplayPictureScreen extends StatelessWidget {
   final String imagePath;
+  final List<dynamic> recognitions;
+  final String? detectedLabel;
 
-  const DisplayPictureScreen({super.key, required this.imagePath});
+  const DisplayPictureScreen({
+    Key? key,
+    required this.imagePath,
+    required this.recognitions,
+    this.detectedLabel, // Initialize the detected label
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Calories Checker'),
+        title: const Text('Object Detection Results'),
         backgroundColor: Color(0xFF5390d9),
       ),
-      // The image is stored as a file on the device. Use the `Image.file`
-      // constructor with the given path to display the image.
-      body: Image.file(File(imagePath)),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Expanded(
+            child: Image.file(File(imagePath)),
+          ),
+          SizedBox(height: 20),
+          Text(
+            'Detected Objects:',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+          SizedBox(height: 10),
+          Expanded(
+            child: ListView.builder(
+              itemCount: recognitions.length,
+              itemBuilder: (context, index) {
+                var label = recognitions[index]['label'];
+                var confidence = recognitions[index]['confidence'];
+                return ListTile(
+                  title: Text('$label - ${confidence.toStringAsFixed(2)}'),
+                );
+              },
+            ),
+          ),
+          SizedBox(height: 20), // Add some space
+          ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          TestApi(query: detectedLabel ?? '')));
+              // Handle the 'Check Calories' button press
+              // You can navigate to a new screen or perform an action here
+            },
+            child: Text('Check Calories'),
+          ),
+        ],
+      ),
     );
   }
 }
