@@ -234,12 +234,12 @@ class DisplayPictureScreen extends StatelessWidget {
           Expanded(
             child: Image.file(File(imagePath)),
           ),
-          SizedBox(height: 20),
+          SizedBox(height: 10),
           Text(
             'Detected Objects:',
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
-          SizedBox(height: 10),
+          SizedBox(height: 5),
           Expanded(
             child: ListView.builder(
               itemCount: recognitions.length,
@@ -252,7 +252,7 @@ class DisplayPictureScreen extends StatelessWidget {
               },
             ),
           ),
-          SizedBox(height: 20), // Add some space
+          SizedBox(height: 5), // Add some space
           ElevatedButton(
             onPressed: () {
               Navigator.push(
