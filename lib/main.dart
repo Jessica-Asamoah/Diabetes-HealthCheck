@@ -1,13 +1,13 @@
 import 'package:chatbot/views/api.dart';
-import 'package:chatbot/views/camera.dart';
 import 'package:chatbot/views/chatbot.dart';
+import 'package:chatbot/views/recognition.dart';
 import 'package:chatbot/views/tfl.dart';
 import 'package:flutter/material.dart';
 
 void main() {
   runApp(
     MaterialApp(
-      home: Dashboard(),
+      home: const Dashboard(),
       routes: {'/chatbot/': (context) => const ChatBot()},
     ),
   );
@@ -120,8 +120,7 @@ class Dashboard extends StatelessWidget {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) =>
-                                            const RecScreen()));
+                                        builder: (context) => RecScreen()));
                               },
                               child: const Text(
                                 "Camera",

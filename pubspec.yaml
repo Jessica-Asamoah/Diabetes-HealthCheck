@@ -45,6 +45,7 @@ dependencies:
   http: ^0.13.6
   tflite: ^1.1.2
   image_picker: ^1.0.2
+  file: ^6.1.4
   
 
 dev_dependencies:
@@ -82,6 +83,10 @@ flutter:
     - assets/images/chat-bot.png
     - assets/FruitsINC1.tflite
     - assets/fruit_labels.txt
+    - assets/images/sina-piryae-bBzjWthTqb8-unsplash.png
+    - assets/localfoods.txt
+    - assets/LocalFoodVGG2.tflite
+    - assets/images/iPhone-14-Plus-1.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -57,7 +57,7 @@ class _TestApiState extends State<TestApi> {
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-              image: AssetImage("assets/images/image_2023-06-09_13-38-14.png"),
+              image: AssetImage("assets/images/iPhone-14-Plus-1.png"),
               fit: BoxFit.cover),
         ),
         child: Padding(
